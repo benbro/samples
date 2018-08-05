@@ -10,11 +10,14 @@
 
 const startButton = document.getElementById('startButton');
 const callButton = document.getElementById('callButton');
+const gumButton = document.getElementById('gumButton');
 const hangupButton = document.getElementById('hangupButton');
 callButton.disabled = true;
+gumButton.disabled = true;
 hangupButton.disabled = true;
 startButton.onclick = start;
 callButton.onclick = call;
+gumButton.onClick = gum;
 hangupButton.onclick = hangup;
 
 let startTime;
@@ -69,7 +72,7 @@ function start() {
   navigator.mediaDevices
     .getUserMedia({
       audio: true,
-      video: true
+      video: false
     })
     .then(gotStream)
     .catch(e => alert(`getUserMedia() error: ${e.name}`));
@@ -77,7 +80,8 @@ function start() {
 
 function call() {
   callButton.disabled = true;
-  hangupButton.disabled = false;
+  gumButton.disabled = false;
+  //hangupButton.disabled = false;
   trace('Starting call');
   startTime = window.performance.now();
   const videoTracks = localStream.getVideoTracks();
@@ -181,3 +185,15 @@ function hangup() {
   hangupButton.disabled = true;
   callButton.disabled = false;
 }
+
+function gum() {
+  navigator.mediaDevices
+    .getUserMedia({
+      audio: true,
+      video: true
+    })
+    .then(stream => alert('getUserMedia() success'))
+    .catch(e => alert(`getUserMedia() error: ${e.name}`));
+}
+
+
