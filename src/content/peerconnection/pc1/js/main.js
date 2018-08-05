@@ -17,7 +17,7 @@ gumButton.disabled = true;
 hangupButton.disabled = true;
 startButton.onclick = start;
 callButton.onclick = call;
-gumButton.onClick = gum;
+gumButton.onclick = gum;
 hangupButton.onclick = hangup;
 
 let startTime;
